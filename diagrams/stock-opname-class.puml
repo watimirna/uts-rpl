@@ -1,0 +1,127 @@
+@startuml Stock Opname Class Diagram
+
+' Styling
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<boundary>> LightYellow
+    BackgroundColor<<control>> LightBlue
+    BackgroundColor<<entity>> LightGreen
+}
+
+title Class Diagram - Stock Opname (MVC Pattern)
+
+' Boundary (View/UI)
+class StockOpnameView <<boundary>> {
+    + tampilkanFormBuat()
+    + tampilkanDaftarBarang()
+    + tampilkanFormInputStokFisik()
+    + tampilkanSelisihStok()
+    + tampilkanFormCatatan()
+    + tampilkanReviewData()
+    + tampilkanLaporan()
+}
+
+' Control (Controller/Business Logic)
+class StockOpnameController <<control>> {
+    - opnameService: StockOpnameService
+    --
+    + buatStockOpnameBaru()
+    + pilihBarang(barangId)
+    + inputStokFisik(barangId, jumlah)
+    + hitungSelisih()
+    + tambahCatatan(text)
+    + submitUntukApproval()
+    + approveOpname()
+    + generateLaporan()
+}
+
+class StockOpnameService <<control>> {
+    + validateInputStok()
+    + hitungSelisih(stokSistem, stokFisik)
+    + tentukanStatus(selisih)
+    + updateStokSistem(barangId, selisih)
+    + buatTransaksiPenyesuaian()
+}
+
+' Entity (Domain Model)
+class StockOpname <<entity>> {
+    - nomorOpname: String
+    - tanggalOpname: Date
+    - status: StatusOpname
+    - catatan: String
+    - dibuatOleh: User
+    - disetujuiOleh: User
+    --
+    + tambahItem(item)
+    + hitungTotalSelisih()
+    + ubahStatus(status)
+    + dapatkanRingkasan()
+}
+
+class ItemOpname <<entity>> {
+    - barang: Barang
+    - stokSistem: Integer
+    - stokFisik: Integer
+    - selisih: Integer
+    - status: StatusSelisih
+    - catatan: String
+    --
+    + hitungSelisih()
+    + tentukanStatus()
+    + validasi()
+}
+
+class Barang <<entity>> {
+    - kode: String
+    - nama: String
+    - satuan: String
+    - stokTersedia: Integer
+    --
+    + getStokTersedia()
+    + updateStok(jumlah)
+}
+
+' Enumerations
+enum StatusOpname {
+    DRAFT
+    MENUNGGU_APPROVAL
+    DISETUJUI
+    DITOLAK
+}
+
+enum StatusSelisih {
+    MATCH
+    KELEBIHAN
+    KEKURANGAN
+}
+
+' Relationships
+StockOpnameView --> StockOpnameController : uses
+StockOpnameController --> StockOpnameService : uses
+StockOpnameController --> StockOpname : manages
+StockOpname "1" *-- "many" ItemOpname : contains
+ItemOpname --> Barang : references
+ItemOpname --> StatusSelisih
+StockOpname --> StatusOpname
+
+' Notes
+note right of StockOpnameService
+  **Logika Bisnis:**
+  
+  hitungSelisih():
+    return stokFisik - stokSistem
+  
+  tentukanStatus(selisih):
+    if selisih == 0: return MATCH
+    if selisih > 0: return KELEBIHAN
+    if selisih < 0: return KEKURANGAN
+end note
+
+note bottom of StockOpname
+  **Flow Status:**
+  DRAFT → MENUNGGU_APPROVAL 
+       → DISETUJUI (update stok)
+       → DITOLAK (tidak ada perubahan)
+end note
+
+@enduml

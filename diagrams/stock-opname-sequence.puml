@@ -1,0 +1,161 @@
+@startuml Stock Opname Sequence Diagram
+
+' Styling
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+title Sequence Diagram - Proses Stock Opname (Alur Lengkap)
+
+actor "Admin/Staff" as User
+participant "UI/View" as View
+participant "Controller" as Ctrl
+participant "Service" as Svc
+participant "Stok Barang" as Stock
+
+== 1. Membuat Stock Opname Baru ==
+User -> View: Klik "Buat Stock Opname"
+activate View
+View -> Ctrl: buatStockOpnameBaru()
+activate Ctrl
+
+Ctrl -> Svc: generateNomorOpname()
+activate Svc
+Svc --> Ctrl: "SO/2024/001"
+deactivate Svc
+
+Ctrl -> Ctrl: simpanStockOpname(draft)
+Ctrl --> View: opnameId, status=DRAFT
+deactivate Ctrl
+View --> User: Tampilkan form pilih barang
+deactivate View
+
+== 2. Pilih Barang & Input Stok Fisik ==
+User -> View: Pilih Barang A
+activate View
+View -> Ctrl: pilihBarang(barangId)
+activate Ctrl
+
+Ctrl -> Stock: getStokTersedia(barangId)
+activate Stock
+Stock --> Ctrl: stokSistem = 100
+deactivate Stock
+
+Ctrl --> View: stokSistem = 100
+deactivate Ctrl
+View --> User: Tampilkan:\n"Stok Sistem: 100"\n"Input Stok Fisik: ___"
+deactivate View
+
+User -> View: Input Stok Fisik = 95
+activate View
+View -> Ctrl: inputStokFisik(barangId, 95)
+activate Ctrl
+
+Ctrl -> Svc: hitungSelisih(100, 95)
+activate Svc
+Svc -> Svc: selisih = 95 - 100 = -5
+Svc -> Svc: tentukanStatus(-5) = KEKURANGAN
+Svc --> Ctrl: {selisih: -5, status: KEKURANGAN}
+deactivate Svc
+
+Ctrl -> Ctrl: simpanItemOpname()
+Ctrl --> View: Item tersimpan
+deactivate Ctrl
+View --> User: Tampilkan:\n"✓ Barang A\n  Sistem: 100\n  Fisik: 95\n  Selisih: -5 (KEKURANGAN)"
+deactivate View
+
+== 3. Review & Submit ==
+User -> View: Klik "Review Data"
+activate View
+View -> Ctrl: getSelisihStok()
+activate Ctrl
+Ctrl -> Ctrl: hitungTotalSelisih()
+Ctrl --> View: daftarSelisih[]
+deactivate Ctrl
+
+View --> User: Tampilkan semua selisih
+deactivate View
+
+User -> View: Tambah catatan (optional)
+activate View
+View -> Ctrl: tambahCatatan(text)
+activate Ctrl
+Ctrl --> View: OK
+deactivate Ctrl
+deactivate View
+
+User -> View: Klik "Submit untuk Approval"
+activate View
+View -> Ctrl: submitUntukApproval()
+activate Ctrl
+Ctrl -> Ctrl: ubahStatus(MENUNGGU_APPROVAL)
+Ctrl --> View: Status updated
+deactivate Ctrl
+View --> User: "Stock Opname telah disubmit.\nMenunggu approval Manager."
+deactivate View
+
+== 4. Approval oleh Manager ==
+actor "Manager" as Manager
+Manager -> View: Buka daftar pending approval
+activate View
+View -> Ctrl: getDaftarPendingApproval()
+activate Ctrl
+Ctrl --> View: daftarOpname[]
+deactivate Ctrl
+View --> Manager: Tampilkan list
+deactivate View
+
+Manager -> View: Review SO/2024/001
+activate View
+View -> Ctrl: getDetailOpname(opnameId)
+activate Ctrl
+Ctrl --> View: detail lengkap + selisih
+deactivate Ctrl
+View --> Manager: Tampilkan detail
+deactivate View
+
+Manager -> View: Klik "Approve"
+activate View
+View -> Ctrl: approveOpname(opnameId)
+activate Ctrl
+
+Ctrl -> Svc: validateData()
+activate Svc
+Svc --> Ctrl: Valid
+deactivate Svc
+
+loop Untuk setiap item dengan selisih
+    Ctrl -> Stock: updateStok(barangId, selisih)
+    activate Stock
+    note right
+      Jika selisih = -5:
+      stokBaru = 100 + (-5) = 95
+    end note
+    Stock -> Stock: stokBaru = stokLama + selisih
+    Stock --> Ctrl: Stok updated
+    deactivate Stock
+    
+    Ctrl -> Ctrl: catatTransaksiPenyesuaian()
+end
+
+Ctrl -> Ctrl: ubahStatus(DISETUJUI)
+Ctrl --> View: Approval success
+deactivate Ctrl
+
+View --> Manager: "Stock Opname telah disetujui.\nStok sistem telah diupdate."
+deactivate View
+
+== 5. Generate Laporan ==
+Manager -> View: Klik "Cetak Laporan"
+activate View
+View -> Ctrl: generateLaporan(opnameId)
+activate Ctrl
+Ctrl -> Svc: buatLaporanPDF()
+activate Svc
+Svc --> Ctrl: laporanPDF
+deactivate Svc
+Ctrl --> View: file PDF
+deactivate Ctrl
+View --> Manager: Download/Print Laporan
+deactivate View
+
+@enduml

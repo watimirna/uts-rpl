@@ -1,0 +1,66 @@
+@startuml Stock Opname Use Case Diagram
+
+' Styling
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseBackgroundColor LightBlue
+skinparam usecaseBackgroundColor<<critical>> LightCoral
+
+title Use Case Diagram - Modul Stock Opname
+
+' Actors
+actor "Admin/Staff" as user
+actor "Manager/Supervisor" as supervisor
+
+' System boundary
+rectangle "Sistem Stock Opname" {
+    
+    ' Main Stock Opname Flow
+    usecase "Buat Stock Opname" as UC1
+    usecase "Pilih Barang" as UC2
+    usecase "Input Stok Fisik" as UC3
+    usecase "Lihat Selisih Stok" as UC4
+    usecase "Tambah Catatan" as UC5
+    usecase "Submit untuk Approval" as UC6
+    usecase "Approve Stock Opname" as UC7 <<critical>>
+    usecase "Update Stok Sistem" as UC8 <<critical>>
+    usecase "Generate Laporan" as UC9
+}
+
+' User relationships
+user --> UC1
+user --> UC2
+user --> UC3
+user --> UC4
+user --> UC5
+user --> UC6
+
+' Supervisor relationships
+supervisor --> UC7
+supervisor --> UC9
+
+' Flow relationships
+UC1 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<include>>
+UC3 ..> UC4 : <<include>>
+UC6 .> UC5 : <<extend>>
+UC7 ..> UC8 : <<include>>
+UC7 ..> UC9 : <<include>>
+
+note right of UC4
+  Selisih dihitung otomatis:
+  difference = stok_fisik - stok_sistem
+  
+  Status:
+  - Match (selisih = 0)
+  - Over (selisih > 0)
+  - Short (selisih < 0)
+end note
+
+note right of UC7
+  Hanya bisa dilakukan oleh
+  Manager/Supervisor setelah
+  review data stock opname
+end note
+
+@enduml

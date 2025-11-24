@@ -1,0 +1,181 @@
+@startuml Stock Opname Activity Diagram
+
+' Styling
+skinparam activityBackgroundColor LightBlue
+skinparam activityBorderColor Black
+skinparam activityDiamondBackgroundColor LightYellow
+skinparam activityStartColor Green
+skinparam activityEndColor Red
+
+title Activity Diagram - Proses Stock Opname
+
+|Staff/Admin|
+start
+:Login ke sistem;
+:Buka menu Stock Opname;
+:Klik "Buat Stock Opname Baru";
+
+|System|
+:Generate nomor SO (misal: SO/2024/001);
+:Set status = DRAFT;
+:Simpan header stock opname;
+
+|Staff/Admin|
+:Lihat daftar barang tersedia;
+:Pilih barang yang akan dihitung;
+
+|System|
+:Ambil stok sistem dari database;
+:Tampilkan stok sistem ke user;
+note right
+  Contoh: Barang A
+  Stok Sistem: 100 unit
+end note
+
+|Staff/Admin|
+:Pergi ke gudang;
+:Hitung stok fisik barang;
+:Input jumlah stok fisik;
+note right
+  User input: 95 unit
+end note
+
+|System|
+:Hitung selisih stok;
+note right
+  Rumus:
+  selisih = stok_fisik - stok_sistem
+  selisih = 95 - 100 = -5
+end note
+
+if (Selisih = 0?) then (Ya)
+  #LightGreen:Status = MATCH (Cocok);
+else if (Selisih > 0?) then (Ya)
+  #LightYellow:Status = KELEBIHAN;
+  note right: Ada stok lebih
+else (Selisih < 0)
+  #LightCoral:Status = KEKURANGAN;
+  note right: Ada stok kurang
+endif
+
+:Simpan data item;
+
+|Staff/Admin|
+repeat
+  :Review item yang baru disimpan;
+repeat while (Ada barang lain yang\nperlu dihitung?) is (Ya) not (Tidak)
+->Tidak;
+
+:Review semua data yang\ntelah diinput;
+
+:Lihat daftar item dengan selisih;
+note right
+  Daftar barang:
+  - Barang A: -5 (Kekurangan)
+  - Barang B: +3 (Kelebihan)
+  - Barang C: 0 (Match)
+end note
+
+repeat
+  :Cek kebenaran data;
+  if (Data sudah benar?) then (Ya)
+    :Lanjut ke proses berikutnya;
+  else (Tidak)
+    :Edit atau hapus item\nyang salah;
+  endif
+repeat while (Perlu koreksi lagi?) is (Ya) not (Tidak)
+->Tidak;
+
+if (Perlu tambah catatan?) then (Ya)
+  :Input catatan/keterangan;
+  note right
+    Contoh: "Ditemukan barang rusak"
+    "Ada selisih karena..."
+  end note
+else (Tidak)
+endif
+
+:Klik "Submit untuk Approval";
+
+|System|
+:Ubah status = MENUNGGU_APPROVAL;
+:Kirim notifikasi ke Manager;
+
+|Manager/Supervisor|
+:Terima notifikasi stock opname baru;
+:Buka detail stock opname;
+:Review data dan selisih;
+
+if (Data valid dan\ndapat disetujui?) then (Tidak)
+  |System|
+  :Ubah status = DITOLAK;
+  :Catat alasan penolakan;
+  |Staff/Admin|
+  :Terima notifikasi penolakan;
+  :Perbaiki dan submit ulang;
+  stop
+else (Ya)
+endif
+
+:Klik "Approve";
+
+|System|
+:Validasi data;
+
+fork
+  :Loop semua item dengan selisih;
+fork again
+  :Siapkan transaksi database;
+end fork
+
+repeat
+  :Ambil item selanjutnya;
+  if (Item punya selisih?) then (Ya)
+    :Update stok barang;
+    note right
+      stok_baru = stok_lama + selisih
+      
+      Contoh Barang A:
+      stok_baru = 100 + (-5) = 95
+    end note
+    :Catat transaksi penyesuaian;
+  else (Tidak)
+    :Skip item ini;
+  endif
+repeat while (Masih ada item?) is (Ya)
+->Tidak;
+
+:Ubah status = DISETUJUI;
+:Simpan user approver & waktu;
+:Commit semua perubahan;
+
+if (Berhasil?) then (Ya)
+  |Manager/Supervisor|
+  :Terima konfirmasi approval;
+  
+  if (Perlu cetak laporan?) then (Ya)
+    |System|
+    :Generate laporan PDF;
+    :Tampilkan ringkasan:
+    - Total item dihitung
+    - Total item dengan selisih
+    - Total kelebihan
+    - Total kekurangan;
+    
+    |Manager/Supervisor|
+    :Download/cetak laporan;
+  else (Tidak)
+  endif
+  
+  stop
+  
+else (Tidak)
+  |System|
+  :Rollback semua perubahan;
+  :Tampilkan pesan error;
+  |Manager/Supervisor|
+  :Cek error dan ulangi;
+  stop
+endif
+
+@enduml
