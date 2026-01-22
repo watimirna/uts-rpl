@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1566px" preserveAspectRatio="none" style="width:2402px;height:1566px;background:#FFFFFF;" version="1.1" viewBox="0 0 2402 1566" width="2402px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="26.2969" id="_title" style="stroke:none;stroke-width:1.0;" width="327" x="1036" y="15"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="317" x="1041" y="32.9951">Activity Diagram - Proses Stock Opname</text><ellipse cx="381.5" cy="85.9951" fill="#008000" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="117" x="323" y="115.9951"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="97" x="333" y="137.1338">Login ke sistem</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="185" x="289" y="169.9639"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="165" x="299" y="191.1025">Buka menu Stock Opname</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="217" x="273" y="331.8701"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="197" x="283" y="353.0088">Pilih produk yang akan dihitung</text><path d="M489.5,382.6904 L489.5,398.8232 L469.5,402.8232 L489.5,406.8232 L489.5,422.9561 A0,0 0 0 0 489.5,422.9561 L658.5,422.9561 A0,0 0 0 0 658.5,422.9561 L658.5,392.6904 L648.5,382.6904 L489.5,382.6904 A0,0 0 0 0 489.5,382.6904 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M648.5,382.6904 L648.5,392.6904 L658.5,392.6904 L648.5,382.6904 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="111" x="495.5" y="399.7573">Contoh: Produk A</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="148" x="495.5" y="414.8901">Current Stock: 100 unit</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="176" x="293.5" y="385.8389"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="156" x="303.5" y="406.9775">Lihat stok sistem saat ini</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="123" x="320" y="442.9561"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="103" x="330" y="464.0947">Pergi ke gudang</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="168" x="297.5" y="496.9248"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="148" x="307.5" y="518.0635">Hitung stok fisik produk</text><path d="M498,555.3115 L498,563.8779 L478,567.8779 L498,571.8779 L498,580.4443 A0,0 0 0 0 498,580.4443 L637,580.4443 A0,0 0 0 0 637,580.4443 L637,565.3115 L627,555.3115 L498,555.3115 A0,0 0 0 0 498,555.3115 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M627,555.3115 L627,565.3115 L637,565.3115 L627,555.3115 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="118" x="504" y="572.3784">User input: 95 unit</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="193" x="285" y="550.8936"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="173" x="295" y="572.0322">Input jumlah counted_stock</text><path d="M492.5,653.2646 L492.5,669.3975 L472.5,673.3975 L492.5,677.3975 L492.5,693.5303 A0,0 0 0 0 492.5,693.5303 L685.5,693.5303 A0,0 0 0 0 685.5,693.5303 L685.5,663.2646 L675.5,653.2646 L492.5,653.2646 A0,0 0 0 0 492.5,653.2646 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M675.5,653.2646 L675.5,663.2646 L685.5,663.2646 L675.5,653.2646 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="149" x="498.5" y="670.3315">Contoh: "Barang rusak"</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="172" x="498.5" y="685.4644">"Selisih karena kehilangan"</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="182" x="290.5" y="656.4131"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="162" x="300.5" y="677.5518">Input catatan/keterangan</text><polygon fill="#FFFFE0" points="317.5,604.8623,445.5,604.8623,457.5,616.8623,445.5,628.8623,317.5,628.8623,305.5,616.8623,317.5,604.8623" style="stroke:#000000;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="385.5" y="639.0728">Ya</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="128" x="317.5" y="620.6704">Perlu tambah catatan?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="457.5" y="614.2681">Tidak</text><polygon fill="#FFFFE0" points="381.5,713.5303,393.5,725.5303,381.5,737.5303,369.5,725.5303,381.5,713.5303" style="stroke:#000000;stroke-width:0.5;"/><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="192" x="285.5" y="757.5303"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="172" x="295.5" y="778.6689">Klik "Submit Stock Opname"</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="141" x="71.5" y="1390.8931"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="121" x="81.5" y="1412.0317">Lihat pesan sukses</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="242" x="21" y="1444.8618"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="222" x="31" y="1466.0005">Redirect ke halaman stock opname</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="178" x="723.875" y="920.8975"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="158" x="733.875" y="942.0361">Lihat pesan error validasi</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="286" x="669.875" y="974.8662"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="266" x="679.875" y="996.0049">Kembali ke form dengan input sebelumnya</text><ellipse cx="381.5" cy="1543.8306" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="381.5" cy="1543.8306" fill="#222222" rx="6" ry="6" style="stroke:#111111;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.5;" x1="15" x2="15" y1="50.042" y2="1554.8306"/><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="223" x="1975.5" y="223.9326"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="203" x="1985.5" y="245.0713">Load daftar produk dengan stok</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="234" x="1970" y="277.9014"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="214" x="1980" y="299.04">Tampilkan halaman stock opname</text><path d="M2159,801.499 L2159,825.1982 L2139,829.1982 L2159,833.1982 L2159,856.8975 A0,0 0 0 0 2159,856.8975 L2377,856.8975 A0,0 0 0 0 2377,856.8975 L2377,811.499 L2367,801.499 L2159,801.499 A0,0 0 0 0 2159,801.499 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M2367,801.499 L2367,811.499 L2377,811.499 L2367,801.499 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="149" x="2165" y="818.5659">- product_id harus valid</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="140" x="2165" y="833.6987">- counted_stock &gt;= 0</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="197" x="2165" y="848.8315">- note opsional (max 255 char)</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="104" x="2035" y="812.2139"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="84" x="2045" y="833.3525">Validasi input</text><polygon fill="#FFFFE0" points="2037,876.8975,2137,876.8975,2149,888.8975,2137,900.8975,2037,900.8975,2025,888.8975,2037,876.8975" style="stroke:#000000;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="100" x="2037" y="892.7056">Validasi berhasil?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="2011" y="886.3032">Ya</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="30" x="2149" y="886.3032">Tidak</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="192" x="1559.625" y="920.8975"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="172" x="1569.625" y="942.0361">Mulai database transaction</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="259" x="1526.125" y="974.8662"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="239" x="1536.125" y="996.0049">Ambil current_stock dari ProductStock</text><path d="M1743.125,1025.6865 L1743.125,1041.8193 L1723.125,1045.8193 L1743.125,1049.8193 L1743.125,1065.9521 A0,0 0 0 0 1743.125,1065.9521 L1995.125,1065.9521 A0,0 0 0 0 1995.125,1065.9521 L1995.125,1035.6865 L1985.125,1025.6865 L1743.125,1025.6865 A0,0 0 0 0 1743.125,1025.6865 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M1985.125,1025.6865 L1985.125,1035.6865 L1995.125,1035.6865 L1985.125,1025.6865 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="231" x="1749.125" y="1042.7534">diff = counted_stock - current_stock</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="123" x="1749.125" y="1057.8862">diff = 95 - 100 = -5</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="135" x="1588.125" y="1028.835"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="115" x="1598.125" y="1049.9736">Hitung selisih stok</text><polygon fill="#FFFFE0" points="1059.375,1085.9521,1107.375,1085.9521,1119.375,1097.9521,1107.375,1109.9521,1059.375,1109.9521,1047.375,1097.9521,1059.375,1085.9521" style="stroke:#000000;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="1087.375" y="1120.1626">Ya</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="1059.375" y="1101.7603">diff = 0?</text><rect fill="#90EE90" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="235" x="965.875" y="1141.9165"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="215" x="975.875" y="1163.0552">Tidak ada penyesuaian diperlukan</text><polygon fill="#FFFFE0" points="1314.875,1085.9521,1362.875,1085.9521,1374.875,1097.9521,1362.875,1109.9521,1314.875,1109.9521,1302.875,1097.9521,1314.875,1085.9521" style="stroke:#000000;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="14" x="1342.875" y="1120.1626">Ya</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48" x="1314.875" y="1101.7603">diff &gt; 0?</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="42" x="1374.875" y="1095.3579">diff &lt; 0</text><path d="M1421.375,1141.9165 L1421.375,1158.0493 L1401.375,1162.0493 L1421.375,1166.0493 L1421.375,1182.1821 A0,0 0 0 0 1421.375,1182.1821 L1745.375,1182.1821 A0,0 0 0 0 1745.375,1182.1821 L1745.375,1151.9165 L1735.375,1141.9165 L1421.375,1141.9165 A0,0 0 0 0 1421.375,1141.9165 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M1735.375,1141.9165 L1735.375,1151.9165 L1745.375,1151.9165 L1735.375,1141.9165 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="303" x="1427.375" y="1158.9834">stockIn(productId, diff, 0, 'stock_opname', note)</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="205" x="1427.375" y="1174.1162">- Tambah stok karena kelebihan</text><rect fill="#FFFFE0" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="125" x="1276.375" y="1145.0649"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="105" x="1286.375" y="1166.2036">Panggil stockIn()</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="226" x="1225.875" y="1205.5845"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="206" x="1235.875" y="1226.7231">Buat ProductTransaction (qty_in)</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="256" x="1210.875" y="1262.9556"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="236" x="1220.875" y="1284.0942">Update ProductStock (tambah qty_in)</text><path d="M1986.375,1138.5142 L1986.375,1154.647 L1966.375,1158.647 L1986.375,1162.647 L1986.375,1178.7798 A0,0 0 0 0 1986.375,1178.7798 L2355.375,1178.7798 A0,0 0 0 0 2355.375,1178.7798 L2355.375,1148.5142 L2345.375,1138.5142 L1986.375,1138.5142 A0,0 0 0 0 1986.375,1138.5142 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><path d="M2345.375,1138.5142 L2345.375,1148.5142 L2355.375,1148.5142 L2345.375,1138.5142 " fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="348" x="1992.375" y="1155.5811">stockOut(productId, abs(diff), 0, 'stock_opname', note)</text><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="215" x="1992.375" y="1170.7139">- Kurangi stok karena kekurangan</text><rect fill="#F08080" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="136" x="1830.375" y="1141.6626"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116" x="1840.375" y="1162.8013">Panggil stockOut()</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="236" x="1780.375" y="1202.1821"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="216" x="1790.375" y="1223.3208">Buat ProductTransaction (qty_out)</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="266" x="1765.375" y="1259.5532"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="246" x="1775.375" y="1280.6919">Update ProductStock (tambah qty_out)</text><rect fill="#ADD8E6" height="33.9688" rx="12.5" ry="12.5" style="stroke:#000000;stroke-width:0.5;" width="206" x="1552.625" y="1336.9243"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="186" x="1562.625" y="1358.063">Commit database transaction</text><polygon fill="#FFFFE0" points="2087,1488.8306,2099,1500.8306,2087,1512.8306,2075,1500.8306,2087,1488.8306" style="stroke:#000000;stroke-width:0.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="959.875" x2="959.875" y1="50.042" y2="1554.8306"/><line style="stroke:#000000;stroke-width:1.5;" x1="2382" x2="2382" y1="50.042" y2="1554.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="95.9951" y2="115.9951"/><polygon fill="#181818" points="377.5,105.9951,381.5,115.9951,385.5,105.9951,381.5,109.9951" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="149.9639" y2="169.9639"/><polygon fill="#181818" points="377.5,159.9639,381.5,169.9639,385.5,159.9639,381.5,163.9639" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="365.8389" y2="385.8389"/><polygon fill="#181818" points="377.5,375.8389,381.5,385.8389,385.5,375.8389,381.5,379.8389" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="419.8076" y2="442.9561"/><polygon fill="#181818" points="377.5,432.9561,381.5,442.9561,385.5,432.9561,381.5,436.9561" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="476.9248" y2="496.9248"/><polygon fill="#181818" points="377.5,486.9248,381.5,496.9248,385.5,486.9248,381.5,490.9248" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="530.8936" y2="550.8936"/><polygon fill="#181818" points="377.5,540.8936,381.5,550.8936,385.5,540.8936,381.5,544.8936" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="628.8623" y2="656.4131"/><polygon fill="#181818" points="377.5,646.4131,381.5,656.4131,385.5,646.4131,381.5,650.4131" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="457.5" x2="695.5" y1="616.8623" y2="616.8623"/><polygon fill="#181818" points="691.5,663.3975,695.5,673.3975,699.5,663.3975,695.5,667.3975" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="695.5" x2="695.5" y1="616.8623" y2="725.5303"/><line style="stroke:#181818;stroke-width:1.0;" x1="695.5" x2="393.5" y1="725.5303" y2="725.5303"/><polygon fill="#181818" points="403.5,721.5303,393.5,725.5303,403.5,729.5303,399.5,725.5303" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="690.3818" y2="713.5303"/><polygon fill="#181818" points="377.5,703.5303,381.5,713.5303,385.5,703.5303,381.5,707.5303" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="584.8623" y2="604.8623"/><polygon fill="#181818" points="377.5,594.8623,381.5,604.8623,385.5,594.8623,381.5,598.8623" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="737.5303" y2="757.5303"/><polygon fill="#181818" points="377.5,747.5303,381.5,757.5303,385.5,747.5303,381.5,751.5303" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="142" x2="142" y1="1424.8618" y2="1444.8618"/><polygon fill="#181818" points="138,1434.8618,142,1444.8618,146,1434.8618,142,1438.8618" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="812.875" x2="812.875" y1="954.8662" y2="974.8662"/><polygon fill="#181818" points="808.875,964.8662,812.875,974.8662,816.875,964.8662,812.875,968.8662" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="2087" y1="257.9014" y2="277.9014"/><polygon fill="#181818" points="2083,267.9014,2087,277.9014,2091,267.9014,2087,271.9014" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1655.625" y1="954.8662" y2="974.8662"/><polygon fill="#181818" points="1651.625,964.8662,1655.625,974.8662,1659.625,964.8662,1655.625,968.8662" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1655.625" y1="1008.835" y2="1028.835"/><polygon fill="#181818" points="1651.625,1018.835,1655.625,1028.835,1659.625,1018.835,1655.625,1022.835" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1338.875" x2="1338.875" y1="1179.0337" y2="1205.5845"/><polygon fill="#181818" points="1334.875,1195.5845,1338.875,1205.5845,1342.875,1195.5845,1338.875,1199.5845" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1338.875" x2="1338.875" y1="1239.5532" y2="1262.9556"/><polygon fill="#181818" points="1334.875,1252.9556,1338.875,1262.9556,1342.875,1252.9556,1338.875,1256.9556" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1898.375" x2="1898.375" y1="1175.6313" y2="1202.1821"/><polygon fill="#181818" points="1894.375,1192.1821,1898.375,1202.1821,1902.375,1192.1821,1898.375,1196.1821" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1898.375" x2="1898.375" y1="1236.1509" y2="1259.5532"/><polygon fill="#181818" points="1894.375,1249.5532,1898.375,1259.5532,1902.375,1249.5532,1898.375,1253.5532" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1083.375" x2="1083.375" y1="1109.9521" y2="1141.9165"/><polygon fill="#181818" points="1079.375,1131.9165,1083.375,1141.9165,1087.375,1131.9165,1083.375,1135.9165" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1083.375" x2="1083.375" y1="1175.8853" y2="1316.9243"/><polygon fill="#181818" points="1079.375,1306.9243,1083.375,1316.9243,1087.375,1306.9243,1083.375,1310.9243" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1338.875" x2="1338.875" y1="1109.9521" y2="1145.0649"/><polygon fill="#181818" points="1334.875,1135.0649,1338.875,1145.0649,1342.875,1135.0649,1338.875,1139.0649" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1338.875" x2="1338.875" y1="1296.9243" y2="1316.9243"/><polygon fill="#181818" points="1334.875,1306.9243,1338.875,1316.9243,1342.875,1306.9243,1338.875,1310.9243" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1119.375" x2="1302.875" y1="1097.9521" y2="1097.9521"/><polygon fill="#181818" points="1292.875,1093.9521,1302.875,1097.9521,1292.875,1101.9521,1296.875,1097.9521" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1655.625" y1="1062.8037" y2="1070.9521"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1083.375" y1="1070.9521" y2="1070.9521"/><line style="stroke:#181818;stroke-width:1.0;" x1="1083.375" x2="1083.375" y1="1070.9521" y2="1085.9521"/><polygon fill="#181818" points="1079.375,1075.9521,1083.375,1085.9521,1087.375,1075.9521,1083.375,1079.9521" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1374.875" x2="1898.375" y1="1097.9521" y2="1097.9521"/><line style="stroke:#181818;stroke-width:1.0;" x1="1898.375" x2="1898.375" y1="1097.9521" y2="1141.6626"/><polygon fill="#181818" points="1894.375,1131.6626,1898.375,1141.6626,1902.375,1131.6626,1898.375,1135.6626" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1898.375" x2="1898.375" y1="1293.522" y2="1316.9243"/><polygon fill="#181818" points="1894.375,1306.9243,1898.375,1316.9243,1902.375,1306.9243,1898.375,1310.9243" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1083.375" x2="1898.375" y1="1316.9243" y2="1316.9243"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1655.625" y1="1316.9243" y2="1336.9243"/><polygon fill="#181818" points="1651.625,1326.9243,1655.625,1336.9243,1659.625,1326.9243,1655.625,1330.9243" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="2025" x2="1655.625" y1="888.8975" y2="888.8975"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1655.625" y1="888.8975" y2="920.8975"/><polygon fill="#181818" points="1651.625,910.8975,1655.625,920.8975,1659.625,910.8975,1655.625,914.8975" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="2087" y1="846.1826" y2="876.8975"/><polygon fill="#181818" points="2083,866.8975,2087,876.8975,2091,866.8975,2087,870.8975" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="203.9326" y2="208.9326"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="2087" y1="208.9326" y2="208.9326"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="2087" y1="208.9326" y2="223.9326"/><polygon fill="#181818" points="2083,213.9326,2087,223.9326,2091,213.9326,2087,217.9326" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="2087" y1="311.8701" y2="316.8701"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="381.5" y1="316.8701" y2="316.8701"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="316.8701" y2="331.8701"/><polygon fill="#181818" points="377.5,321.8701,381.5,331.8701,385.5,321.8701,381.5,325.8701" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="791.499" y2="796.499"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="2087" y1="796.499" y2="796.499"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="2087" y1="796.499" y2="812.2139"/><polygon fill="#181818" points="2083,802.2139,2087,812.2139,2091,802.2139,2087,806.2139" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="1655.625" y1="1370.8931" y2="1375.8931"/><line style="stroke:#181818;stroke-width:1.0;" x1="1655.625" x2="142" y1="1375.8931" y2="1375.8931"/><line style="stroke:#181818;stroke-width:1.0;" x1="142" x2="142" y1="1375.8931" y2="1390.8931"/><polygon fill="#181818" points="138,1380.8931,142,1390.8931,146,1380.8931,142,1384.8931" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="2149" x2="2161" y1="888.8975" y2="888.8975"/><line style="stroke:#181818;stroke-width:1.0;" x1="2161" x2="2161" y1="888.8975" y2="906.8975"/><line style="stroke:#181818;stroke-width:1.0;" x1="2161" x2="812.875" y1="906.8975" y2="906.8975"/><line style="stroke:#181818;stroke-width:1.0;" x1="812.875" x2="812.875" y1="906.8975" y2="920.8975"/><polygon fill="#181818" points="808.875,910.8975,812.875,920.8975,816.875,910.8975,812.875,914.8975" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="142" x2="142" y1="1478.8306" y2="1500.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="142" x2="2075" y1="1500.8306" y2="1500.8306"/><polygon fill="#181818" points="2065,1496.8306,2075,1500.8306,2065,1504.8306,2069,1500.8306" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="812.875" x2="812.875" y1="1008.835" y2="1482.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="812.875" x2="2117" y1="1482.8306" y2="1482.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="2117" x2="2117" y1="1482.8306" y2="1500.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="2117" x2="2099" y1="1500.8306" y2="1500.8306"/><polygon fill="#181818" points="2109,1496.8306,2099,1500.8306,2109,1504.8306,2105,1500.8306" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="2087" y1="1512.8306" y2="1517.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="2087" x2="381.5" y1="1517.8306" y2="1517.8306"/><line style="stroke:#181818;stroke-width:1.0;" x1="381.5" x2="381.5" y1="1517.8306" y2="1532.8306"/><polygon fill="#181818" points="377.5,1522.8306,381.5,1532.8306,385.5,1522.8306,381.5,1526.8306" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="41" x="466.9375" y="66.75">User</text><text fill="#000000" font-family="sans-serif" font-size="18" lengthAdjust="spacing" textLength="65" x="1638.4375" y="66.75">System</text><!--MD5=[c32d03f86b72019c918b8498d0f85add]
+@startuml
+' Styling
+skinparam activityBackgroundColor LightBlue
+skinparam activityBorderColor Black
+skinparam activityDiamondBackgroundColor LightYellow
+skinparam activityStartColor Green
+skinparam activityEndColor Red
+
+title Activity Diagram - Proses Stock Opname
+
+|User|
+start
+:Login ke sistem;
+:Buka menu Stock Opname;
+
+|System|
+:Load daftar produk dengan stok;
+:Tampilkan halaman stock opname;
+
+|User|
+:Pilih produk yang akan dihitung;
+:Lihat stok sistem saat ini;
+note right
+  Contoh: Produk A
+  Current Stock: 100 unit
+end note
+
+:Pergi ke gudang;
+:Hitung stok fisik produk;
+:Input jumlah counted_stock;
+note right
+  User input: 95 unit
+end note
+
+if (Perlu tambah catatan?) then (Ya)
+  :Input catatan/keterangan;
+  note right
+    Contoh: "Barang rusak"
+    "Selisih karena kehilangan"
+  end note
+else (Tidak)
+endif
+
+:Klik "Submit Stock Opname";
+
+|System|
+:Validasi input;
+note right
+  - product_id harus valid
+  - counted_stock >= 0
+  - note opsional (max 255 char)
+end note
+
+if (Validasi berhasil?) then (Ya)
+  :Mulai database transaction;
+
+  :Ambil current_stock dari ProductStock;
+  :Hitung selisih stok;
+  note right
+    diff = counted_stock - current_stock
+    diff = 95 - 100 = -5
+  end note
+
+  if (diff = 0?) then (Ya)
+    #LightGreen:Tidak ada penyesuaian diperlukan;
+  else if (diff > 0?) then (Ya)
+    #LightYellow:Panggil stockIn();
+    note right
+      stockIn(productId, diff, 0, 'stock_opname', note)
+      - Tambah stok karena kelebihan
+    end note
+    :Buat ProductTransaction (qty_in);
+    :Update ProductStock (tambah qty_in);
+  else (diff < 0)
+    #LightCoral:Panggil stockOut();
+    note right
+      stockOut(productId, abs(diff), 0, 'stock_opname', note)
+      - Kurangi stok karena kekurangan
+    end note
+    :Buat ProductTransaction (qty_out);
+    :Update ProductStock (tambah qty_out);
+  endif
+
+  :Commit database transaction;
+
+  |User|
+  :Lihat pesan sukses;
+  :Redirect ke halaman stock opname;
+
+else (Tidak)
+  |User|
+  :Lihat pesan error validasi;
+  :Kembali ke form dengan input sebelumnya;
+endif
+
+stop
+@enduml
+
+@startuml
+skinparam activityBackgroundColor LightBlue
+skinparam activityBorderColor Black
+skinparam activityDiamondBackgroundColor LightYellow
+skinparam activityStartColor Green
+skinparam activityEndColor Red
+
+title Activity Diagram - Proses Stock Opname
+
+|User|
+start
+:Login ke sistem;
+:Buka menu Stock Opname;
+
+|System|
+:Load daftar produk dengan stok;
+:Tampilkan halaman stock opname;
+
+|User|
+:Pilih produk yang akan dihitung;
+:Lihat stok sistem saat ini;
+note right
+  Contoh: Produk A
+  Current Stock: 100 unit
+end note
+
+:Pergi ke gudang;
+:Hitung stok fisik produk;
+:Input jumlah counted_stock;
+note right
+  User input: 95 unit
+end note
+
+if (Perlu tambah catatan?) then (Ya)
+  :Input catatan/keterangan;
+  note right
+    Contoh: "Barang rusak"
+    "Selisih karena kehilangan"
+  end note
+else (Tidak)
+endif
+
+:Klik "Submit Stock Opname";
+
+|System|
+:Validasi input;
+note right
+  - product_id harus valid
+  - counted_stock >= 0
+  - note opsional (max 255 char)
+end note
+
+if (Validasi berhasil?) then (Ya)
+  :Mulai database transaction;
+
+  :Ambil current_stock dari ProductStock;
+  :Hitung selisih stok;
+  note right
+    diff = counted_stock - current_stock
+    diff = 95 - 100 = -5
+  end note
+
+  if (diff = 0?) then (Ya)
+    #LightGreen:Tidak ada penyesuaian diperlukan;
+  else if (diff > 0?) then (Ya)
+    #LightYellow:Panggil stockIn();
+    note right
+      stockIn(productId, diff, 0, 'stock_opname', note)
+      - Tambah stok karena kelebihan
+    end note
+    :Buat ProductTransaction (qty_in);
+    :Update ProductStock (tambah qty_in);
+  else (diff < 0)
+    #LightCoral:Panggil stockOut();
+    note right
+      stockOut(productId, abs(diff), 0, 'stock_opname', note)
+      - Kurangi stok karena kekurangan
+    end note
+    :Buat ProductTransaction (qty_out);
+    :Update ProductStock (tambah qty_out);
+  endif
+
+  :Commit database transaction;
+
+  |User|
+  :Lihat pesan sukses;
+  :Redirect ke halaman stock opname;
+
+else (Tidak)
+  |User|
+  :Lihat pesan error validasi;
+  :Kembali ke form dengan input sebelumnya;
+endif
+
+stop
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 17:01:30 UTC 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: null
+--></g></svg>

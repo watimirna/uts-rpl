@@ -6,122 +6,109 @@ skinparam class {
     BackgroundColor<<boundary>> LightYellow
     BackgroundColor<<control>> LightBlue
     BackgroundColor<<entity>> LightGreen
+    BackgroundColor<<service>> LightCyan
 }
 
-title Class Diagram - Stock Opname (MVC Pattern)
+title Class Diagram - Stock Opname (Implementasi Aktual)
 
 ' Boundary (View/UI)
-class StockOpnameView <<boundary>> {
-    + tampilkanFormBuat()
-    + tampilkanDaftarBarang()
+class "stock-opname.blade.php" as StockOpnameView <<boundary>> {
+    + tampilkanDaftarProduk()
     + tampilkanFormInputStokFisik()
-    + tampilkanSelisihStok()
-    + tampilkanFormCatatan()
-    + tampilkanReviewData()
-    + tampilkanLaporan()
+    + tampilkanStokSaatIni()
 }
 
-' Control (Controller/Business Logic)
+' Control (Controller)
 class StockOpnameController <<control>> {
-    - opnameService: StockOpnameService
+    - stockService: StockService
     --
-    + buatStockOpnameBaru()
-    + pilihBarang(barangId)
-    + inputStokFisik(barangId, jumlah)
-    + hitungSelisih()
-    + tambahCatatan(text)
-    + submitUntukApproval()
-    + approveOpname()
-    + generateLaporan()
+    + index()
+    + store(Request)
 }
 
-class StockOpnameService <<control>> {
-    + validateInputStok()
-    + hitungSelisih(stokSistem, stokFisik)
-    + tentukanStatus(selisih)
-    + updateStokSistem(barangId, selisih)
-    + buatTransaksiPenyesuaian()
+' Service
+class StockService <<service>> {
+    + stockIn(productId, qty, price, type, note)
+    + stockOut(productId, qty, price, type, note)
+    + stockAdjustment(productId, qtyIn, qtyOut, price, type, note)
+    + getCurrentStock(productId): int
+    + isStockAvailable(productId, qty): bool
+    + reverseStockIn(productId, qty)
+    + reverseStockOut(productId, qty)
+    # createTransaction(productId, qtyIn, qtyOut, price, type, note): ProductTransaction
+    # updateStock(productId, qtyIn, qtyOut): ProductStock
 }
 
 ' Entity (Domain Model)
-class StockOpname <<entity>> {
-    - nomorOpname: String
-    - tanggalOpname: Date
-    - status: StatusOpname
-    - catatan: String
-    - dibuatOleh: User
-    - disetujuiOleh: User
+class Product <<entity>> {
+    - id: Integer
+    - name: String
+    - description: String
+    - price: Decimal
     --
-    + tambahItem(item)
-    + hitungTotalSelisih()
-    + ubahStatus(status)
-    + dapatkanRingkasan()
+    + productStock(): HasOne
+    + productTransactions(): HasMany
 }
 
-class ItemOpname <<entity>> {
-    - barang: Barang
-    - stokSistem: Integer
-    - stokFisik: Integer
-    - selisih: Integer
-    - status: StatusSelisih
-    - catatan: String
+class ProductStock <<entity>> {
+    - product_id: Integer (PK)
+    - qty_in: Integer
+    - qty_out: Integer
+    - current_stock: Integer
     --
-    + hitungSelisih()
-    + tentukanStatus()
-    + validasi()
+    + product(): BelongsTo
 }
 
-class Barang <<entity>> {
-    - kode: String
-    - nama: String
-    - satuan: String
-    - stokTersedia: Integer
+class ProductTransaction <<entity>> {
+    - id: Integer
+    - product_id: Integer
+    - user_id: Integer
+    - qty_in: Integer
+    - qty_out: Integer
+    - type: String
+    - price: Decimal
+    - total_price: Decimal
+    - note: String
     --
-    + getStokTersedia()
-    + updateStok(jumlah)
+    + product(): BelongsTo
+    + user(): BelongsTo
 }
 
-' Enumerations
-enum StatusOpname {
-    DRAFT
-    MENUNGGU_APPROVAL
-    DISETUJUI
-    DITOLAK
-}
-
-enum StatusSelisih {
-    MATCH
-    KELEBIHAN
-    KEKURANGAN
+class User <<entity>> {
+    - id: Integer
+    - name: String
+    - email: String
 }
 
 ' Relationships
 StockOpnameView --> StockOpnameController : uses
-StockOpnameController --> StockOpnameService : uses
-StockOpnameController --> StockOpname : manages
-StockOpname "1" *-- "many" ItemOpname : contains
-ItemOpname --> Barang : references
-ItemOpname --> StatusSelisih
-StockOpname --> StatusOpname
+StockOpnameController --> StockService : uses
+StockService --> ProductStock : manages
+StockService --> ProductTransaction : creates
+Product "1" -- "1" ProductStock : has
+Product "1" -- "many" ProductTransaction : has
+ProductTransaction --> User : references
 
 ' Notes
-note right of StockOpnameService
-  **Logika Bisnis:**
-  
-  hitungSelisih():
-    return stokFisik - stokSistem
-  
-  tentukanStatus(selisih):
-    if selisih == 0: return MATCH
-    if selisih > 0: return KELEBIHAN
-    if selisih < 0: return KEKURANGAN
+note right of StockService
+  **Logika Stock Opname:**
+
+  1. Hitung selisih:
+     diff = counted_stock - current_stock
+
+  2. Penyesuaian:
+     if diff > 0: stockIn(productId, diff, 0, 'stock_opname', note)
+     if diff < 0: stockOut(productId, abs(diff), 0, 'stock_opname', note)
+     if diff = 0: tidak ada perubahan
 end note
 
-note bottom of StockOpname
-  **Flow Status:**
-  DRAFT → MENUNGGU_APPROVAL 
-       → DISETUJUI (update stok)
-       → DITOLAK (tidak ada perubahan)
+note bottom of ProductTransaction
+  **Type untuk Stock Opname:**
+  type = 'stock_opname'
+
+  Transaksi dicatat dengan:
+  - qty_in > 0 (jika kelebihan)
+  - qty_out > 0 (jika kekurangan)
 end note
 
 @enduml

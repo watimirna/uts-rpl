@@ -9,22 +9,20 @@ skinparam usecaseBackgroundColor<<critical>> LightCoral
 title Use Case Diagram - Modul Stock Opname
 
 ' Actors
-actor "Admin/Staff" as user
-actor "Manager/Supervisor" as supervisor
+actor "User" as user
 
 ' System boundary
 rectangle "Sistem Stock Opname" {
-    
+
     ' Main Stock Opname Flow
-    usecase "Buat Stock Opname" as UC1
-    usecase "Pilih Barang" as UC2
-    usecase "Input Stok Fisik" as UC3
-    usecase "Lihat Selisih Stok" as UC4
-    usecase "Tambah Catatan" as UC5
-    usecase "Submit untuk Approval" as UC6
-    usecase "Approve Stock Opname" as UC7 <<critical>>
-    usecase "Update Stok Sistem" as UC8 <<critical>>
-    usecase "Generate Laporan" as UC9
+    usecase "Lihat Daftar Produk" as UC1
+    usecase "Pilih Produk" as UC2
+    usecase "Input Stok Fisik (Counted Stock)" as UC3
+    usecase "Tambah Catatan (Opsional)" as UC4
+    usecase "Submit Stock Opname" as UC5
+    usecase "Hitung Selisih Stok" as UC6 <<critical>>
+    usecase "Update Stok Sistem" as UC7 <<critical>>
+    usecase "Catat Transaksi" as UC8
 }
 
 ' User relationships
@@ -33,34 +31,37 @@ user --> UC2
 user --> UC3
 user --> UC4
 user --> UC5
-user --> UC6
-
-' Supervisor relationships
-supervisor --> UC7
-supervisor --> UC9
 
 ' Flow relationships
 UC1 ..> UC2 : <<include>>
 UC2 ..> UC3 : <<include>>
-UC3 ..> UC4 : <<include>>
-UC6 .> UC5 : <<extend>>
+UC3 .> UC4 : <<extend>>
+UC5 ..> UC6 : <<include>>
+UC6 ..> UC7 : <<include>>
 UC7 ..> UC8 : <<include>>
-UC7 ..> UC9 : <<include>>
 
-note right of UC4
+note right of UC6
   Selisih dihitung otomatis:
-  difference = stok_fisik - stok_sistem
-  
-  Status:
-  - Match (selisih = 0)
-  - Over (selisih > 0)
-  - Short (selisih < 0)
+  difference = counted_stock - current_stock
+
+  Hasil:
+  - diff = 0: Tidak ada penyesuaian
+  - diff > 0: stockIn (kelebihan)
+  - diff < 0: stockOut (kekurangan)
 end note
 
 note right of UC7
-  Hanya bisa dilakukan oleh
-  Manager/Supervisor setelah
-  review data stock opname
+  Penyesuaian langsung dilakukan
+  tanpa approval workflow.
+
+  Menggunakan StockService:
+  - stockIn() jika diff > 0
+  - stockOut() jika diff < 0
+end note
+
+note right of UC8
+  ProductTransaction dicatat
+  dengan type = 'stock_opname'
 end note
 
 @enduml

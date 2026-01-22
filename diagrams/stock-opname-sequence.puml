@@ -4,158 +4,117 @@
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-title Sequence Diagram - Proses Stock Opname (Alur Lengkap)
+title Sequence Diagram - Proses Stock Opname (Implementasi Aktual)
 
-actor "Admin/Staff" as User
-participant "UI/View" as View
-participant "Controller" as Ctrl
-participant "Service" as Svc
-participant "Stok Barang" as Stock
+actor "User" as User
+participant "View\n(stock-opname.blade.php)" as View
+participant "StockOpnameController" as Ctrl
+participant "StockService" as Svc
+participant "ProductStock" as Stock
+participant "ProductTransaction" as Trans
+database "Database" as DB
 
-== 1. Membuat Stock Opname Baru ==
-User -> View: Klik "Buat Stock Opname"
+== 1. Menampilkan Halaman Stock Opname ==
+User -> View: Buka menu Stock Opname
 activate View
-View -> Ctrl: buatStockOpnameBaru()
+View -> Ctrl: index()
 activate Ctrl
 
-Ctrl -> Svc: generateNomorOpname()
-activate Svc
-Svc --> Ctrl: "SO/2024/001"
-deactivate Svc
+Ctrl -> DB: Product::with('productStock')->get()
+activate DB
+DB --> Ctrl: products[]
+deactivate DB
 
-Ctrl -> Ctrl: simpanStockOpname(draft)
-Ctrl --> View: opnameId, status=DRAFT
+Ctrl --> View: view('reports.stock-opname', products)
 deactivate Ctrl
-View --> User: Tampilkan form pilih barang
+View --> User: Tampilkan daftar produk\ndengan stok saat ini
 deactivate View
 
-== 2. Pilih Barang & Input Stok Fisik ==
-User -> View: Pilih Barang A
+== 2. Input Stok Fisik ==
+User -> View: Pilih produk, input counted_stock
 activate View
-View -> Ctrl: pilihBarang(barangId)
+note right
+  Form input:
+  - product_id
+  - counted_stock (stok fisik)
+  - note (opsional)
+end note
+View --> User: Tampilkan form
+deactivate View
+
+User -> View: Submit form stock opname
+activate View
+View -> Ctrl: store(Request)
 activate Ctrl
 
-Ctrl -> Stock: getStokTersedia(barangId)
+Ctrl -> Ctrl: validate(request)
+note right
+  Validasi:
+  - product_id: required, exists
+  - counted_stock: required, integer, min:0
+  - note: nullable, string, max:255
+end note
+
+== 3. Proses Penyesuaian Stok ==
+Ctrl -> DB: DB::beginTransaction()
+activate DB
+
+Ctrl -> Svc: getCurrentStock(productId)
+activate Svc
+Svc -> Stock: find(productId)
 activate Stock
-Stock --> Ctrl: stokSistem = 100
+Stock --> Svc: current_stock = 100
 deactivate Stock
-
-Ctrl --> View: stokSistem = 100
-deactivate Ctrl
-View --> User: Tampilkan:\n"Stok Sistem: 100"\n"Input Stok Fisik: ___"
-deactivate View
-
-User -> View: Input Stok Fisik = 95
-activate View
-View -> Ctrl: inputStokFisik(barangId, 95)
-activate Ctrl
-
-Ctrl -> Svc: hitungSelisih(100, 95)
-activate Svc
-Svc -> Svc: selisih = 95 - 100 = -5
-Svc -> Svc: tentukanStatus(-5) = KEKURANGAN
-Svc --> Ctrl: {selisih: -5, status: KEKURANGAN}
+Svc --> Ctrl: currentStock = 100
 deactivate Svc
 
-Ctrl -> Ctrl: simpanItemOpname()
-Ctrl --> View: Item tersimpan
-deactivate Ctrl
-View --> User: Tampilkan:\n"✓ Barang A\n  Sistem: 100\n  Fisik: 95\n  Selisih: -5 (KEKURANGAN)"
-deactivate View
+Ctrl -> Ctrl: diff = counted - current
+note right
+  Contoh:
+  counted = 95
+  current = 100
+  diff = 95 - 100 = -5
+end note
 
-== 3. Review & Submit ==
-User -> View: Klik "Review Data"
-activate View
-View -> Ctrl: getSelisihStok()
-activate Ctrl
-Ctrl -> Ctrl: hitungTotalSelisih()
-Ctrl --> View: daftarSelisih[]
-deactivate Ctrl
-
-View --> User: Tampilkan semua selisih
-deactivate View
-
-User -> View: Tambah catatan (optional)
-activate View
-View -> Ctrl: tambahCatatan(text)
-activate Ctrl
-Ctrl --> View: OK
-deactivate Ctrl
-deactivate View
-
-User -> View: Klik "Submit untuk Approval"
-activate View
-View -> Ctrl: submitUntukApproval()
-activate Ctrl
-Ctrl -> Ctrl: ubahStatus(MENUNGGU_APPROVAL)
-Ctrl --> View: Status updated
-deactivate Ctrl
-View --> User: "Stock Opname telah disubmit.\nMenunggu approval Manager."
-deactivate View
-
-== 4. Approval oleh Manager ==
-actor "Manager" as Manager
-Manager -> View: Buka daftar pending approval
-activate View
-View -> Ctrl: getDaftarPendingApproval()
-activate Ctrl
-Ctrl --> View: daftarOpname[]
-deactivate Ctrl
-View --> Manager: Tampilkan list
-deactivate View
-
-Manager -> View: Review SO/2024/001
-activate View
-View -> Ctrl: getDetailOpname(opnameId)
-activate Ctrl
-Ctrl --> View: detail lengkap + selisih
-deactivate Ctrl
-View --> Manager: Tampilkan detail
-deactivate View
-
-Manager -> View: Klik "Approve"
-activate View
-View -> Ctrl: approveOpname(opnameId)
-activate Ctrl
-
-Ctrl -> Svc: validateData()
-activate Svc
-Svc --> Ctrl: Valid
-deactivate Svc
-
-loop Untuk setiap item dengan selisih
-    Ctrl -> Stock: updateStok(barangId, selisih)
+alt diff > 0 (Kelebihan stok)
+    Ctrl -> Svc: stockIn(productId, diff, 0, 'stock_opname', note)
+    activate Svc
+    Svc -> Trans: create(productId, qty_in=diff, type='stock_opname')
+    activate Trans
+    Trans --> Svc: transaction created
+    deactivate Trans
+    Svc -> Stock: updateStock(productId, qtyIn=diff, qtyOut=0)
     activate Stock
-    note right
-      Jika selisih = -5:
-      stokBaru = 100 + (-5) = 95
-    end note
-    Stock -> Stock: stokBaru = stokLama + selisih
-    Stock --> Ctrl: Stok updated
+    Stock --> Svc: stock updated
     deactivate Stock
-    
-    Ctrl -> Ctrl: catatTransaksiPenyesuaian()
+    Svc --> Ctrl: OK
+    deactivate Svc
+
+else diff < 0 (Kekurangan stok)
+    Ctrl -> Svc: stockOut(productId, abs(diff), 0, 'stock_opname', note)
+    activate Svc
+    Svc -> Trans: create(productId, qty_out=abs(diff), type='stock_opname')
+    activate Trans
+    Trans --> Svc: transaction created
+    deactivate Trans
+    Svc -> Stock: updateStock(productId, qtyIn=0, qtyOut=abs(diff))
+    activate Stock
+    Stock --> Svc: stock updated
+    deactivate Stock
+    Svc --> Ctrl: OK
+    deactivate Svc
+
+else diff = 0 (Stok cocok)
+    note right: Tidak ada perubahan diperlukan
 end
 
-Ctrl -> Ctrl: ubahStatus(DISETUJUI)
-Ctrl --> View: Approval success
+Ctrl -> DB: DB::commit()
+deactivate DB
+
+Ctrl --> View: redirect()->route('stock-opname.index')\n->with('success', message)
 deactivate Ctrl
 
-View --> Manager: "Stock Opname telah disetujui.\nStok sistem telah diupdate."
-deactivate View
-
-== 5. Generate Laporan ==
-Manager -> View: Klik "Cetak Laporan"
-activate View
-View -> Ctrl: generateLaporan(opnameId)
-activate Ctrl
-Ctrl -> Svc: buatLaporanPDF()
-activate Svc
-Svc --> Ctrl: laporanPDF
-deactivate Svc
-Ctrl --> View: file PDF
-deactivate Ctrl
-View --> Manager: Download/Print Laporan
+View --> User: Tampilkan pesan sukses:\n"Stock adjusted successfully!" atau\n"No adjustment needed. Stock already matches."
 deactivate View
 
 @enduml
