@@ -1,0 +1,215 @@
+@startuml Sale Activity Diagram
+
+' Styling
+skinparam activityBackgroundColor LightBlue
+skinparam activityBorderColor Black
+skinparam activityDiamondBackgroundColor LightYellow
+skinparam activityStartColor Green
+skinparam activityEndColor Red
+
+title Activity Diagram - Proses Sale
+
+|User|
+start
+:Login ke sistem;
+:Buka menu Sales;
+
+|System|
+:Tampilkan daftar sale;
+
+|User|
+:Klik "Buat Sale Baru";
+
+|System|
+:Load daftar customer;
+:Load daftar produk;
+:Tampilkan form create sale;
+
+|User|
+:Pilih customer;
+:Input deskripsi sale;
+
+partition "Tambah Item Produk" {
+    repeat
+        :Pilih produk;
+        :Input quantity;
+        :Input harga per unit;
+
+        |System|
+        :Hitung subtotal item;
+        note right
+          subtotal = qty × price
+        end note
+        :Tambahkan ke daftar item;
+
+        |User|
+    repeat while (Tambah item lagi?) is (Ya) not (Tidak)
+}
+
+:Klik "Simpan Sale";
+
+|System|
+:Validasi input;
+note right
+  Validasi:
+  - customer_id: required, exists
+  - description: required, string
+  - items: required, array, min:1
+  - items.*.product_id: required, exists
+  - items.*.qty: required, integer, min:1
+  - items.*.price: required, numeric, min:0
+end note
+
+if (Validasi berhasil?) then (Ya)
+  :Mulai database transaction;
+
+  :Hitung total qty dan total_price;
+  note right
+    totalQty = sum(items.qty)
+    totalPrice = sum(items.qty × items.price)
+  end note
+
+  :Buat record Sale;
+  note right
+    Sale::create([
+      customer_id,
+      description,
+      qty: totalQty,
+      total_price: totalPrice
+    ])
+  end note
+
+  partition "Loop Setiap Item" {
+    repeat
+      :Buat record SaleItem;
+      note right
+        SaleItem::create([
+          sale_id,
+          product_id,
+          qty,
+          price,
+          total_price
+        ])
+      end note
+
+      :Panggil stockOut();
+      note right
+        stockService->stockOut(
+          productId,
+          qty,
+          price,
+          'sale'
+        )
+      end note
+
+      :Buat ProductTransaction;
+      note right
+        ProductTransaction dengan:
+        - qty_out = qty
+        - type = 'sale'
+      end note
+
+      :Update ProductStock;
+      note right
+        qty_out += qty
+        current_stock = qty_in - qty_out
+      end note
+
+    repeat while (Masih ada item?) is (Ya) not (Tidak)
+  }
+
+  :Commit database transaction;
+
+  |User|
+  :Lihat pesan sukses;
+  :Redirect ke daftar sale;
+
+else (Tidak)
+  |User|
+  :Lihat pesan error validasi;
+  :Kembali ke form dengan input sebelumnya;
+endif
+
+stop
+
+== Proses Edit Sale ==
+
+|User|
+start
+:Klik "Edit" pada sale;
+
+|System|
+:Load data sale dengan items;
+:Load daftar customer;
+:Load daftar produk;
+:Tampilkan form edit;
+
+|User|
+:Edit data sale;
+:Edit/tambah/hapus item;
+:Klik "Update";
+
+|System|
+:Validasi input;
+
+if (Validasi berhasil?) then (Ya)
+  :Mulai database transaction;
+
+  :Reverse stok lama;
+  note right
+    Loop setiap item lama:
+    reverseStockOut(productId, qty)
+  end note
+
+  :Hapus item lama;
+  :Update record Sale;
+
+  partition "Loop Item Baru" {
+    repeat
+      :Buat SaleItem baru;
+      :Panggil stockOut();
+    repeat while (Masih ada item?) is (Ya) not (Tidak)
+  }
+
+  :Commit transaction;
+
+  |User|
+  :Lihat pesan sukses;
+
+else (Tidak)
+  |User|
+  :Lihat pesan error;
+endif
+
+stop
+
+== Proses Hapus Sale ==
+
+|User|
+start
+:Klik "Hapus" pada sale;
+:Konfirmasi penghapusan;
+
+|System|
+:Mulai database transaction;
+
+partition "Reverse Stok" {
+  repeat
+    :Panggil reverseStockOut();
+    note right
+      Kembalikan stok untuk
+      setiap item yang dihapus
+    end note
+  repeat while (Masih ada item?) is (Ya) not (Tidak)
+}
+
+:Hapus semua SaleItem;
+:Hapus Sale;
+:Commit transaction;
+
+|User|
+:Lihat pesan sukses;
+
+stop
+
+@enduml

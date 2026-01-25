@@ -1,0 +1,75 @@
+@startuml Sale Use Case Diagram
+
+' Styling
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecaseBackgroundColor LightBlue
+skinparam usecaseBackgroundColor<<critical>> LightCoral
+
+title Use Case Diagram - Modul Sale
+
+' Actors
+actor "User" as user
+
+' System boundary
+rectangle "Sistem Sale" {
+
+    ' Main Sale Flow
+    usecase "Lihat Daftar Sale" as UC1
+    usecase "Buat Sale Baru" as UC2
+    usecase "Pilih Customer" as UC3
+    usecase "Tambah Item Produk" as UC4
+    usecase "Input Qty & Harga" as UC5
+    usecase "Simpan Sale" as UC6
+    usecase "Lihat Detail Sale" as UC7
+    usecase "Edit Sale" as UC8
+    usecase "Hapus Sale" as UC9
+    usecase "Update Stok (Stock Out)" as UC10 <<critical>>
+    usecase "Reverse Stock Out" as UC11 <<critical>>
+    usecase "Catat Transaksi" as UC12
+}
+
+' User relationships
+user --> UC1
+user --> UC2
+user --> UC7
+user --> UC8
+user --> UC9
+
+' Flow relationships - Create Sale
+UC2 ..> UC3 : <<include>>
+UC2 ..> UC4 : <<include>>
+UC4 ..> UC5 : <<include>>
+UC2 ..> UC6 : <<include>>
+UC6 ..> UC10 : <<include>>
+UC10 ..> UC12 : <<include>>
+
+' Flow relationships - Edit Sale
+UC8 ..> UC11 : <<include>>
+UC8 ..> UC10 : <<include>>
+
+' Flow relationships - Delete Sale
+UC9 ..> UC11 : <<include>>
+
+note right of UC6
+  Saat menyimpan sale:
+  1. Hitung total qty & total_price
+  2. Buat record Sale
+  3. Buat record SaleItem untuk setiap item
+  4. Update stok menggunakan StockService
+end note
+
+note right of UC10
+  StockService.stockOut():
+  - Kurangi stok produk
+  - Catat ProductTransaction
+    dengan type = 'sale'
+end note
+
+note right of UC11
+  StockService.reverseStockOut():
+  - Kembalikan stok yang sudah dikurangi
+  - Digunakan saat edit/delete sale
+end note
+
+@enduml

@@ -1,0 +1,222 @@
+@startuml Sale Sequence Diagram
+
+' Styling
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+title Sequence Diagram - Proses Sale (Implementasi Aktual)
+
+actor "User" as User
+participant "View\n(sales/*.blade.php)" as View
+participant "SaleController" as Ctrl
+participant "StockService" as Svc
+participant "Sale" as SaleModel
+participant "SaleItem" as ItemModel
+participant "ProductStock" as Stock
+participant "ProductTransaction" as Trans
+database "Database" as DB
+
+== 1. Menampilkan Halaman Create Sale ==
+User -> View: Klik "Buat Sale Baru"
+activate View
+View -> Ctrl: create()
+activate Ctrl
+
+Ctrl -> DB: Customer::orderBy('name')->get()
+activate DB
+DB --> Ctrl: customers[]
+deactivate DB
+
+Ctrl -> DB: Product::orderBy('name')->get()
+activate DB
+DB --> Ctrl: products[]
+deactivate DB
+
+Ctrl --> View: view('sales.create', customers, products)
+deactivate Ctrl
+View --> User: Tampilkan form create sale
+deactivate View
+
+== 2. Input Data Sale ==
+User -> View: Pilih customer, input items
+activate View
+note right
+  Form input:
+  - customer_id
+  - description
+  - items[] (product_id, qty, price)
+end note
+View --> User: Tampilkan form
+deactivate View
+
+User -> View: Submit form
+activate View
+View -> Ctrl: store(Request)
+activate Ctrl
+
+Ctrl -> Ctrl: validate(request)
+note right
+  Validasi:
+  - customer_id: required, exists
+  - description: required, string
+  - items: required, array, min:1
+  - items.*.product_id: required, exists
+  - items.*.qty: required, integer, min:1
+  - items.*.price: required, numeric, min:0
+end note
+
+== 3. Proses Simpan Sale ==
+Ctrl -> DB: DB::beginTransaction()
+activate DB
+
+Ctrl -> Ctrl: Calculate totals
+note right
+  Loop items:
+  totalQty += item.qty
+  totalPrice += item.qty × item.price
+end note
+
+Ctrl -> SaleModel: create(customer_id, description, qty, total_price)
+activate SaleModel
+SaleModel --> Ctrl: sale
+deactivate SaleModel
+
+loop Untuk setiap item
+    Ctrl -> ItemModel: create(sale_id, product_id, qty, price, total_price)
+    activate ItemModel
+    ItemModel --> Ctrl: saleItem
+    deactivate ItemModel
+
+    Ctrl -> Svc: stockOut(productId, qty, price, 'sale')
+    activate Svc
+
+    Svc -> Trans: create(productId, qty_out=qty, type='sale')
+    activate Trans
+    Trans --> Svc: transaction created
+    deactivate Trans
+
+    Svc -> Stock: updateStock(productId, qtyIn=0, qtyOut=qty)
+    activate Stock
+    note right
+      qty_out += qty
+      current_stock = qty_in - qty_out
+    end note
+    Stock --> Svc: stock updated
+    deactivate Stock
+
+    Svc --> Ctrl: OK
+    deactivate Svc
+end
+
+Ctrl -> DB: DB::commit()
+deactivate DB
+
+Ctrl --> View: redirect()->route('sales.index')\n->with('success', 'Sale created successfully!')
+deactivate Ctrl
+
+View --> User: Tampilkan pesan sukses
+deactivate View
+
+== 4. Lihat Detail Sale ==
+User -> View: Klik sale untuk lihat detail
+activate View
+View -> Ctrl: show(sale)
+activate Ctrl
+
+Ctrl -> SaleModel: load(['customer', 'items.product'])
+activate SaleModel
+SaleModel --> Ctrl: sale with relations
+deactivate SaleModel
+
+Ctrl --> View: view('sales.show', sale)
+deactivate Ctrl
+View --> User: Tampilkan detail sale
+deactivate View
+
+== 5. Update Sale ==
+User -> View: Klik "Edit" pada sale
+activate View
+View -> Ctrl: edit(sale)
+activate Ctrl
+
+Ctrl -> SaleModel: load('items')
+Ctrl -> DB: Customer::get(), Product::get()
+Ctrl --> View: view('sales.edit', sale, customers, products)
+deactivate Ctrl
+View --> User: Tampilkan form edit
+deactivate View
+
+User -> View: Submit form update
+activate View
+View -> Ctrl: update(Request, sale)
+activate Ctrl
+
+Ctrl -> Ctrl: validate(request)
+
+Ctrl -> DB: DB::beginTransaction()
+activate DB
+
+Ctrl -> Ctrl: Calculate new totals
+
+Ctrl -> SaleModel: update(customer_id, description, qty, total_price)
+activate SaleModel
+SaleModel --> Ctrl: OK
+deactivate SaleModel
+
+loop Untuk setiap item lama
+    Ctrl -> Svc: reverseStockOut(productId, qty)
+    activate Svc
+    note right
+      Kembalikan stok:
+      qty_out -= qty
+      current_stock = qty_in - qty_out
+    end note
+    Svc --> Ctrl: OK
+    deactivate Svc
+end
+
+Ctrl -> ItemModel: sale->items()->delete()
+
+loop Untuk setiap item baru
+    Ctrl -> ItemModel: create(sale_id, product_id, qty, price, total_price)
+    Ctrl -> Svc: stockOut(productId, qty, price, 'sale')
+end
+
+Ctrl -> DB: DB::commit()
+deactivate DB
+
+Ctrl --> View: redirect()->route('sales.index')\n->with('success', 'Sale updated successfully!')
+deactivate Ctrl
+
+View --> User: Tampilkan pesan sukses
+deactivate View
+
+== 6. Hapus Sale ==
+User -> View: Klik "Hapus" pada sale
+activate View
+View -> Ctrl: destroy(sale)
+activate Ctrl
+
+Ctrl -> DB: DB::beginTransaction()
+activate DB
+
+loop Untuk setiap item
+    Ctrl -> Svc: reverseStockOut(productId, qty)
+    activate Svc
+    Svc --> Ctrl: OK
+    deactivate Svc
+end
+
+Ctrl -> ItemModel: sale->items()->delete()
+Ctrl -> SaleModel: sale->delete()
+
+Ctrl -> DB: DB::commit()
+deactivate DB
+
+Ctrl --> View: JSON response { success: true }
+deactivate Ctrl
+
+View --> User: Tampilkan pesan sukses
+deactivate View
+
+@enduml
